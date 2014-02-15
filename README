@@ -12,7 +12,7 @@ View /Library/Link2App/Scripts/twitter.lua for an example
 Currently implemented
 -------------------------------------------
 twitter                redirect user profiles, anyway
-browser changer        change http(s) link to open in google chrome. Should be simple to modify for other web browsers.
+browser changer        change http(s) link to open in google chrome. Should be simple to modify for other web browsers. (The z_ prefix puts it at the end of the list so it’s loaded last so it doesn’t screw up other url handlers)
 github (iOctocat)
 
 
