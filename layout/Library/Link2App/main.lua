@@ -1,21 +1,20 @@
+local PLUGINS = "/Library/Link2App/Scripts/"
+
 local functions = { }
 local enabled = { }
 
-for line in io.lines("/Library/Link2App/selected_scripts") do
-    enabled[line] = true
-end
+for line in io.lines("/Library/Link2App/selected_scripts") do 
+    -- also allows for ordering of plugins
+    -- and comments for lines starting with #
+    if line:sub(1, 1) ~= '#' then
+        enabled[line] = true
 
---print"loading plugins"
-for file in lfs.dir"/Library/Link2App/Scripts/" do
-    --print("considering " .. file)
-    if file:sub(-4) == '.lua' and enabled[file] then
-        local tbl = dofile("/Library/Link2App/Scripts/" .. file)
-        print("loading file " .. "/Library/Link2App/Scripts/" .. file)
-        if tbl then
-            --print("file loaded!")
-            table.insert(functions, tbl)
+        print("Loading file: " .. PLUGINS .. line)
+        local result, func = pcall(dofile, PLUGINS .. line)
+        if result and func then
+            table.insert(functions, func)
         else
-            print("failed to load file :(")
+            print("Error loading script: " .. func)
         end
     end
 end
