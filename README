@@ -1,7 +1,7 @@
 Link2App - open links in their native apps
 -------------------------------------------
 
-Tired of twitter links opening in Safari? Want dropbox to open in its app? Well now you can achieve that for any app with a (documented) url scheme. Easily extensible via Lua scripts, you can open any link in its native app.
+Tired of twitter links opening in Safari? Want dropbox to open in its app? (you actually can’t with dropbox but it’s an example). Well now you can achieve that for any app with a (documented) url scheme. Easily extensible via Lua scripts, you can open any link in its native app.
 
 Lua file format
 -------------------------------------------
