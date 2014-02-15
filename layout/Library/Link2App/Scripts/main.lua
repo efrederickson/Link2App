@@ -27,7 +27,7 @@ return function(str)
     for k, v in pairs(functions) do
         local mod = v(str)
         --print("mod: " .. mod)
-        if mod and mod ~= str then return mod end
+        if mod and mod ~= str and mod:len() > 0 then return mod end
     end
     return str
 end
