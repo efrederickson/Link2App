@@ -19,6 +19,7 @@ Currently implemented
 twitter                redirect user profiles, anyway
 browser changer        change http(s) link to open in google chrome. Should be simple to modify for other web browsers. 
 github (iOctocat)
+Instagram              users and images, although Instagram pops up an error for images (not a problem with L2A though)
 
 
 
