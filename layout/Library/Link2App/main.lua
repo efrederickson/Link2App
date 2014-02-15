@@ -1,9 +1,14 @@
 local functions = { }
+local enabled = { }
+
+for line in io.lines("/Library/Link2App/selected_scripts") do
+    enabled[line] = true
+end
 
 --print"loading plugins"
 for file in lfs.dir"/Library/Link2App/Scripts/" do
     --print("considering " .. file)
-    if file:sub(-4) == '.lua' then
+    if file:sub(-4) == '.lua' and enabled[file] then
         local tbl = dofile("/Library/Link2App/Scripts/" .. file)
         print("loading file " .. "/Library/Link2App/Scripts/" .. file)
         if tbl then
