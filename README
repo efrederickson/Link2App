@@ -8,7 +8,8 @@ Implemented mostly in Lua (see main.lua) with an ObjC lua-binding/hook
 Lua file format
 -------------------------------------------
 must return function(url) which should return nil or the modified url
-View /Library/Link2App/Scripts/twitter.lua for an example
+View /Library/Link2App/Scripts/twitter.lua for an example. Changing the default browser is an option with
+Link2App, view browserchanger.lua for an example of redirecting http: and https: to google chrome. 
 
 For the selected_scripts file simply put the lua file script name on a line. Comments exist with the ‘#’ character.
 Ordering is available by the order of lines in the file... See the selected_scripts that comes in this package for an example
@@ -20,6 +21,7 @@ twitter                redirect user profiles, anyway
 browser changer        change http(s) link to open in google chrome. Should be simple to modify for other web browsers. 
 github (iOctocat)
 Instagram              users and images, although Instagram pops up an error for images (not a problem with L2A though)
+Mailto:                redirects and converts all mailto: links to the Gmail app
 
 
 
@@ -27,3 +29,4 @@ Unable to implement
 -------------------------------------------
 Dropbox                lack of url scheme support
 Vine                   lack of url scheme documentation(/support?)
+Facebook               lack of documentation for the v4 application (and old methods don’t work either)
