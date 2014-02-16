@@ -7,4 +7,6 @@
 }
 -(id) init;
 -(NSString*) modify:(NSString*)input;
+-(void) disposeOfLua;
+-(void) createNewLua;
 @end

@@ -1,5 +1,3 @@
-// Small parts based off of Cylinder code...
-
 #import "L2ALuaBinding.h"
 #import "lua/lua.h"
 #import "lua/lualib.h"
@@ -13,15 +11,37 @@ static int l_print(lua_State *L)
     const char *str = lua_tostring(L, 1);
     if(str == NULL) return luaL_error(L, "invalid argument to print");
     
-    NSLog(@"L2A: lua_print: %s", str);
+    NSLog(@"L2A.lua_print: %s", str);
     return 0;
 }
 
-int open_main(lua_State *L)
+@implementation L2ALuaBinding
+-(id) init
 {
-    int func = -1;
+    id obj = [super init];
+    [self createNewLua];
+    return obj;
+}
     
-    //load our file and save the function we want to call
+-(void) disposeOfLua
+{
+    if (L)
+        lua_close(L);
+    L = NULL;
+}
+    
+-(void) createNewLua
+{
+    // init Lua
+    L = luaL_newstate();
+    luaL_openlibs(L);
+    luaopen_lfs(L);
+    
+    // Change print function so output can be debugged via NSLog
+    lua_pushcfunction(L, l_print);
+    lua_setglobal(L, "print");
+    
+    // load main Lua script
     if(luaL_loadfile(L, "/Library/Link2App/main.lua") != LUA_OK || lua_pcall(L, 0, 1, 0) != 0)
     {
         NSLog(@"L2A: failed to load main script: %s", lua_tostring(L, -1));
@@ -34,30 +54,10 @@ int open_main(lua_State *L)
     {
         NSLog(@"L2A: loaded main script");
         lua_pushvalue(L, -1);
-        func = luaL_ref(L, LUA_REGISTRYINDEX);
+        funcIndex = luaL_ref(L, LUA_REGISTRYINDEX);
     }
     
     lua_pop(L, 1);
-    
-    return func;
-}
-
-@implementation L2ALuaBinding
--(id) init
-{
-    id obj = [super init];
-    
-    // init Lua
-    L = luaL_newstate();
-    luaL_openlibs(L);
-    luaopen_lfs(L);
-    
-    lua_pushcfunction(L, l_print);
-    lua_setglobal(L, "print");
-    
-    funcIndex = open_main(L);
-    
-    return obj;
 }
     
 -(NSString*) modify:(NSString*)input
