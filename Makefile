@@ -16,4 +16,5 @@ include $(THEOS_MAKE_PATH)/tweak.mk
 after-install::
 	install.exec "killall -9 SpringBoard"
 
+SUBPROJECTS += l2asettings
 include $(THEOS_MAKE_PATH)/aggregate.mk

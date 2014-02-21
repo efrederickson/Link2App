@@ -22,6 +22,9 @@ browser changer        change http(s) link to open in google chrome. Should be s
 github (iOctocat)
 Instagram              users and images, although Instagram pops up an error for images (not a problem with L2A though)
 Mailto:                redirects and converts all mailto: links to the Gmail app
+Cydia                  only extracts package/ urls so that other stuff like api/ and connect/ aren’t screwed up
+IMDB                   redirects movie titles
+Ebay                   redirects items and searches
 
 
 

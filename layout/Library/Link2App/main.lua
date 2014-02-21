@@ -6,10 +6,10 @@ local enabled = { }
 for line in io.lines("/Library/Link2App/selected_scripts") do 
     -- also allows for ordering of plugins
     -- and comments for lines starting with #
-    if line:sub(1, 1) ~= '#' then
+    if line:sub(1, 1) ~= '#' and line:len() > 0 then
         enabled[line] = true
 
-        print("Loading file: " .. PLUGINS .. line)
+        --print("Loading file: " .. PLUGINS .. line)
         local result, func = pcall(dofile, PLUGINS .. line)
         if result and func then
             table.insert(functions, func)

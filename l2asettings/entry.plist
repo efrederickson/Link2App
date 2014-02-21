@@ -1,0 +1,11 @@
+{
+	entry = {
+		bundle = L2ASettings;
+		cell = PSLinkCell;
+		detail = "L2ASettingsListController";
+		icon = "L2ASettings.png";
+		isController = 1;
+		label = Link2App;
+		"New item" = "";
+	};
+}
