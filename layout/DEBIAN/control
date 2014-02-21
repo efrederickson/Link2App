@@ -1,7 +1,7 @@
 Package: com.efrederickson.link2app
 Name: Link2App
 Depends: mobilesubstrate
-Version: 0.0.1
+Version: 0.0.2
 Architecture: iphoneos-arm
 Description: Open links in their native apps
 Maintainer: Elijah Frederickson
