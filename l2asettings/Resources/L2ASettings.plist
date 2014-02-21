@@ -20,7 +20,9 @@
 			<key>key</key>
 			<string>enabled</string>
 			<key>label</key>
-			<string>Enabled (NYI)</string>
+			<string>Enabled</string>
+                        <key>PostNotification</key>
+                        <string>com.efrederickson.link2app/reloadScripts</string>
 		</dict>
 		<dict>
 			<key>cell</key>

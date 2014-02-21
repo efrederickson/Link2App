@@ -1,26 +1,45 @@
 #import "L2ALuaBinding.h"
 
 static L2ALuaBinding *lua;
+static BOOL enabled = YES;
 
 static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
 {
     NSLog(@"L2A: reloading scripts");
     lua = nil;
     lua = [[L2ALuaBinding alloc] init];
+
+    NSDictionary *prefs = [NSDictionary 
+        dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.efrederickson.link2app.settings.plist"];
+    
+    if ([prefs objectForKey:@"enabled"] != nil)
+        enabled = [[prefs objectForKey:@"enabled"] boolValue];
+    else
+        enabled = YES;
 }
 
 %hook UIApplication
 - (BOOL)openURL:(NSURL*)url
 {
-    NSString *newUrl = [lua modify:[url absoluteString]];
-    NSLog(@"L2A: openUrl %@ -> %@", url, newUrl);
-    return %orig([NSURL URLWithString:newUrl]);
+    if (enabled)
+    {
+        NSString *newUrl = [lua modify:[url absoluteString]];
+        NSLog(@"L2A: openUrl %@ -> %@", url, newUrl);
+        return %orig([NSURL URLWithString:newUrl]);
+    }
+    else
+        return %orig;
 }
 - (BOOL)canOpenURL:(NSURL*)url
 {
-    NSString *newUrl = [lua modify:[url absoluteString]];
-    NSLog(@"L2A: openUrl %@ -> %@", url, newUrl);
-    return %orig([NSURL URLWithString:newUrl]);
+    if (enabled)
+    {
+        NSString *newUrl = [lua modify:[url absoluteString]];
+        NSLog(@"L2A: canOpenUrl %@ -> %@", url, newUrl);
+        return %orig([NSURL URLWithString:newUrl]);
+    }
+    else
+        return %orig;
 }
 %end
 
