@@ -52,7 +52,7 @@ static int l_print(lua_State *L)
     }
     else
     {
-        NSLog(@"L2A: loaded main script");
+        //NSLog(@"L2A: loaded main script");
         lua_pushvalue(L, -1);
         funcIndex = luaL_ref(L, LUA_REGISTRYINDEX);
     }
@@ -73,7 +73,7 @@ static int l_print(lua_State *L)
     if (lua_pcall(L, 1, 1, 0) != 0)
     {
         // log error
-        NSLog(@"L2A: failed to modify url");
+        NSLog(@"L2A: failed to modify url %s", lua_tostring(L, -1));
         [temp release];
         return input;
     }
