@@ -9,7 +9,7 @@ return function(url)
     local statusid = url:gmatch("instagram.com/p/(%w+)")()
     if username and not statusid then
         return "instagram://user?username=" .. username
-    elseif statusid then
-        return "instagram://media?id=" .. statusid
+    --elseif statusid then
+    --    return "instagram://media?id=" .. statusid
     end
 end

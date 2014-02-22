@@ -24,7 +24,8 @@ static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStri
     if (enabled)
     {
         NSString *newUrl = [lua modify:[url absoluteString]];
-        NSLog(@"L2A: openUrl %@ -> %@", url, newUrl);
+        //if (url != newUrl)
+        //    NSLog(@"L2A: openUrl %@ -> %@", url, newUrl);
         return %orig([NSURL URLWithString:newUrl]);
     }
     else
@@ -35,7 +36,8 @@ static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStri
     if (enabled)
     {
         NSString *newUrl = [lua modify:[url absoluteString]];
-        NSLog(@"L2A: canOpenUrl %@ -> %@", url, newUrl);
+        //if (url != newUrl)
+        //    NSLog(@"L2A: canOpenUrl %@ -> %@", url, newUrl);
         return %orig([NSURL URLWithString:newUrl]);
     }
     else

@@ -2,6 +2,7 @@
 	Filter = {
 		Bundles = (
 			"com.apple.UIKit",
+                        "com.atebits.Tweetie2",
 		);
 	};
 }
