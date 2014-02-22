@@ -72,7 +72,6 @@ static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStri
     NSString *url = fp8.absoluteString; // convert the NSURL into an NSString for easy manipulation
     if (enabled && overrideTwitter && [url hasPrefix:@"https://t.co"] == NO) // all twitter links seem to convert into a t.co, so we shall ignore those
     {
-        L2ALuaBinding *lua = [[L2ALuaBinding alloc] init];
         NSString *newUrl = [lua modify:url];
         if (![newUrl isEqualToString:url])
         {
