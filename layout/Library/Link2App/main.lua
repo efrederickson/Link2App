@@ -3,7 +3,7 @@ local PLUGINS = "/Library/Link2App/Scripts/"
 local functions = { }
 local enabled = { }
 
-for line in io.lines("/Library/Link2App/selected_scripts") do 
+for line in io.lines("/User/Library/Link2App/selected_scripts") do 
     -- also allows for ordering of plugins
     -- and comments for lines starting with #
     if line:sub(1, 1) ~= '#' and line:len() > 0 then
