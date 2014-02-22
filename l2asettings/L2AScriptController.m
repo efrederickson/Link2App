@@ -10,9 +10,15 @@
 
 void writeSettings(NSMutableArray *array)
 {
+<<<<<<< HEAD
 	NSString *str = @"";
 	for (L2AScript *s in array)
 		str = [NSString stringWithFormat:@"%@%@%@",str,s.name,@".lua\n"];
+=======
+    NSString *str = @"";
+    for (L2AScript *s in array)
+        str = [NSString stringWithFormat:@"%@%@%@",str,s.name,@".lua\n"];
+>>>>>>> 1594a5185cb9de710ac49ed4f1b9ae24512d3b1f
 
 	//you shouldn't be writing to /Library
 	//try /User/Library instead
@@ -28,15 +34,23 @@ void writeSettings(NSMutableArray *array)
 	NSString* selectedScripts = [filePath stringByAppendingPathComponent:[NSString stringWithFormat: @"selected_scripts"]];
 	[str writeToFile:selectedScripts atomically:YES encoding:NSUTF8StringEncoding error:nil];
 	notify_post("com.efrederickson.link2app/reloadScripts");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1594a5185cb9de710ac49ed4f1b9ae24512d3b1f
 }
 
 NSMutableArray* loadSettings()
 {
 	NSString* file = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Link2App/"]stringByAppendingPathComponent:[NSString stringWithFormat: @"selected_scripts"]];
 	NSString* fileContents = [NSString stringWithContentsOfFile:file
+<<<<<<< HEAD
 	                                                   encoding:NSUTF8StringEncoding
 	                                                      error:nil];
+=======
+                                                       encoding:NSUTF8StringEncoding
+                                                          error:nil];
+>>>>>>> 1594a5185cb9de710ac49ed4f1b9ae24512d3b1f
 	NSArray *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 	NSMutableArray *ret = [NSMutableArray array];
 	for (NSString *line in lines)
