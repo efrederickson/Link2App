@@ -4,8 +4,6 @@
 #import "lua/lauxlib.h"
 #import "lua/lfs.h"
 
-#define PLUGIN_PATH @"/Library/Link2App/Scripts/"
-
 static int l_print(lua_State *L)
 {
     const char *str = lua_tostring(L, 1);

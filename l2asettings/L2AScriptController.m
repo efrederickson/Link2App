@@ -16,16 +16,16 @@ void writeSettings(NSMutableArray *array)
 
 	//you shouldn't be writing to /Library
 	//try /User/Library instead
-        NSString* filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Link2App/"];
+    //NSString* filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Link2App/"];
  
 	//make our DIR in /User/Library/ if it doesn't exist
-        //this should be ignored (no errors) if the DIR already exists
-        [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:YES attributes:nil error:nil];
+    //this should be ignored (no errors) if the DIR already exists
+    //[[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:YES attributes:nil error:nil];
 
 	//this is an array, why wouldn't you just use the pref bundle 
 	//to write the array to the pref plist file in NSHomeDirectory() Library/Preferences/
 	//then read from there?
-	NSString* selectedScripts = [filePath stringByAppendingPathComponent:[NSString stringWithFormat: @"selected_scripts"]];
+	NSString* selectedScripts = @"/Library/Link2App/selected_scripts";
 	[str writeToFile:selectedScripts atomically:YES encoding:NSUTF8StringEncoding error:nil];
 	notify_post("com.efrederickson.link2app/reloadScripts");
 
@@ -33,7 +33,8 @@ void writeSettings(NSMutableArray *array)
 
 NSMutableArray* loadSettings()
 {
-	NSString* file = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Link2App/"]stringByAppendingPathComponent:[NSString stringWithFormat: @"selected_scripts"]];
+	//NSString* file = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Link2App/selected_scripts"];
+    NSString *file = @"/Library/Link2App/selected_scripts";
 	NSString* fileContents = [NSString stringWithContentsOfFile:file
 	                                                   encoding:NSUTF8StringEncoding
 	                                                      error:nil];

@@ -3,7 +3,8 @@ local PLUGINS = "/Library/Link2App/Scripts/"
 local functions = { }
 local enabled = { }
 
-for line in io.lines("/User/Library/Link2App/selected_scripts") do 
+local loaded = { pcall(function()
+for line in io.lines("/Library/Link2App/selected_scripts") do 
     -- also allows for ordering of plugins
     -- and comments for lines starting with #
     if line:sub(1, 1) ~= '#' and line:len() > 0 then
@@ -18,6 +19,8 @@ for line in io.lines("/User/Library/Link2App/selected_scripts") do
         end
     end
 end
+end) }
+if not loaded[1] then print("Error loading scripts: " .. loaded[2]) end
 
 -- block some "dangerous" stuff
 io = nil

@@ -12,8 +12,8 @@ static BOOL enabled = YES;
 static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
 {
     NSLog(@"L2A: reloading scripts");
-    lua = nil;
-    lua = [[L2ALuaBinding alloc] init];
+    [lua disposeOfLua];
+    [lua createNewLua];
 
     NSDictionary *prefs = [NSDictionary 
         dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.efrederickson.link2app.settings.plist"];
@@ -68,10 +68,10 @@ static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStri
 %hook T1WebViewController
 - (BOOL)shouldStartLoadWithURL:(NSURL*)fp8 navigationType:(int)fp12
 {
-    //NSLog(@"L2A: startLoadWithURL: %@", fp8);
     NSString *url = fp8.absoluteString; // convert the NSURL into an NSString for easy manipulation
     if (enabled && overrideTwitter && [url hasPrefix:@"https://t.co"] == NO) // all twitter links seem to convert into a t.co, so we shall ignore those
     {
+        lua = [[L2ALuaBinding alloc] init];
         NSString *newUrl = [lua modify:url];
         if (![newUrl isEqualToString:url])
         {
