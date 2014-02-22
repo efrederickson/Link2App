@@ -1,0 +1,36 @@
+Link2App - open links in their native apps
+-------------------------------------------
+
+Tired of twitter links opening in Safari? Want dropbox to open in its app? (you actually can’t with dropbox but it’s an example). Well now you can achieve that for any app with a (documented) url scheme. Easily extensible via Lua scripts, you can open any link in its native app.
+
+Implemented mostly in Lua (see main.lua) with an ObjC lua-binding/hook/settings
+Changes to settings take effect immediately, no need to respring or even kill running apps. All new scripts (even on first install) default to off and will need to be toggled on.
+
+Lua file format
+-------------------------------------------
+must return function(url) which should return nil or the modified url
+View /Library/Link2App/Scripts/twitter.lua for an example. Changing the default browser is an option with
+Link2App, view browserchanger.lua for an example of redirecting http: and https: to google chrome. 
+
+For the selected_scripts file simply put the lua file script name on a line. Comments exist with the ‘#’ character.
+Ordering is available by the order of lines in the file... See the selected_scripts that comes in this package for an example
+
+
+Currently implemented
+-------------------------------------------
+twitter/tweetbot/twitterrific       redirect user profiles and statuses
+browser changer                     change http(s) link to open in google chrome. Should be simple to modify for other web browsers. 
+github (iOctocat)
+Instagram                           users and images, although Instagram pops up an error for images (not a problem with L2A though)
+Mailto:                             redirects and converts all mailto: links to the Gmail app
+Cydia                               only extracts package/ urls so that other stuff like api/ and connect/ aren’t screwed up
+IMDB                                redirects movie titles
+Ebay                                redirects items and searches
+
+
+
+Unable to implement
+-------------------------------------------
+Dropbox                lack of url scheme support
+Vine                   lack of url scheme documentation(/support?)
+Facebook               lack of documentation for the v4 application (and old methods don’t work either)
