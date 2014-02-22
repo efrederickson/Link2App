@@ -10,32 +10,47 @@
 
 void writeSettings(NSMutableArray *array)
 {
-    NSString *str = @"";
-    for (L2AScript *s in array)
-        str = [NSString stringWithFormat:@"%@%@%@",str,s.name,@".lua\n"];
-    [str writeToFile:@"/Library/Link2App/selected_scripts" atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    notify_post("com.efrederickson.link2app/reloadScripts");
+	NSString *str = @"";
+	for (L2AScript *s in array)
+		str = [NSString stringWithFormat:@"%@%@%@",str,s.name,@".lua\n"];
+
+	//you shouldn't be writing to /Library
+	//try /User/Library instead
+        NSString* filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Link2App/"];
+ 
+	//make our DIR in /User/Library/ if it doesn't exist
+        //this should be ignored (no errors) if the DIR already exists
+        [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:YES attributes:nil error:nil];
+
+	//this is an array, why wouldn't you just use the pref bundle 
+	//to write the array to the pref plist file in NSHomeDirectory() Library/Preferences/
+	//then read from there?
+	NSString* selectedScripts = [filePath stringByAppendingPathComponent:[NSString stringWithFormat: @"selected_scripts"]];
+	[str writeToFile:selectedScripts atomically:YES encoding:NSUTF8StringEncoding error:nil];
+	notify_post("com.efrederickson.link2app/reloadScripts");
+
 }
 
 NSMutableArray* loadSettings()
 {
-    NSString* fileContents = [NSString stringWithContentsOfFile:@"/Library/Link2App/selected_scripts"
-                                                       encoding:NSUTF8StringEncoding
-                                                          error:nil];
-    NSArray *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-    NSMutableArray *ret = [NSMutableArray array];
-    for (NSString *line in lines)
-    {
-        NSArray *ext = [line.lastPathComponent componentsSeparatedByString: @"."];
-        NSMutableString *name = [NSMutableString string];
-        for(int i = 0; i < ext.count - 1; i++)
-        {
-            [name appendString:[ext objectAtIndex:i]];
-            if(i != ext.count - 2) [name appendString:@"."];
-        }
-        [ret addObject:name];
-    }
-    return ret;
+	NSString* file = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Link2App/"]stringByAppendingPathComponent:[NSString stringWithFormat: @"selected_scripts"]];
+	NSString* fileContents = [NSString stringWithContentsOfFile:file
+	                                                   encoding:NSUTF8StringEncoding
+	                                                      error:nil];
+	NSArray *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	NSMutableArray *ret = [NSMutableArray array];
+	for (NSString *line in lines)
+	{
+	    NSArray *ext = [line.lastPathComponent componentsSeparatedByString: @"."];
+	    NSMutableString *name = [NSMutableString string];
+	    for(int i = 0; i < ext.count - 1; i++)
+	    {
+	        [name appendString:[ext objectAtIndex:i]];
+	        if(i != ext.count - 2) [name appendString:@"."];
+	    }
+	    [ret addObject:name];
+	}
+	return ret;
 }
 
 static L2AScriptController *sharedController = nil;
