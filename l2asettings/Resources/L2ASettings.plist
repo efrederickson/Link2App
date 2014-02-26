@@ -62,6 +62,20 @@
                         <key>PostNotification</key>
                         <string>com.efrederickson.link2app/reloadScripts</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.efrederickson.link2app.settings</string>
+			<key>key</key>
+			<string>overrideWebUI</string>
+			<key>label</key>
+			<string>All WebUI (Safari & some apps)</string>
+                        <key>PostNotification</key>
+                        <string>com.efrederickson.link2app/reloadScripts</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Link2App</string>

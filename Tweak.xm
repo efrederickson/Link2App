@@ -7,6 +7,7 @@
 
 static L2ALuaBinding *lua;
 static BOOL overrideTwitter = YES;
+static BOOL overrideWebUI = YES;
 static BOOL enabled = YES;
 
 static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
@@ -27,6 +28,11 @@ static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStri
         overrideTwitter = [[prefs objectForKey:@"overrideTwitter"] boolValue];
     else
         overrideTwitter = YES;
+        
+    if ([prefs objectForKey:@"overrideWebUI"] != nil)
+        overrideWebUI = [[prefs objectForKey:@"overrideWebUI"] boolValue];
+    else
+        overrideWebUI = YES;
 }
 
 %hook UIApplication
@@ -64,6 +70,8 @@ static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStri
 }
 
 // IN-APP OVERRIDES
+
+// TWITTER
 %hook T1WebViewController
 - (BOOL)shouldStartLoadWithURL:(NSURL*)fp8 navigationType:(int)fp12
 {
@@ -78,5 +86,24 @@ static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStri
         }
     }
     return %orig;
+}
+%end
+
+
+//MOBILE SAFARI
+%hook WebUIBrowserLoadingController
+- (void)_loadRequest:(NSURLRequest*)arg1 userDriven:(BOOL)arg2
+{
+    if (enabled && overrideWebUI)
+    {
+        NSString *url = arg1.URL.absoluteString;
+        lua = [[L2ALuaBinding alloc] init];
+        NSString *newUrl = [lua modify:url];
+        if (![newUrl isEqualToString:url])
+        {
+            [[%c(UIApplication) sharedApplication] openURL:[NSURL URLWithString:newUrl]];
+        }
+    }
+    %orig;
 }
 %end
