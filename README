@@ -26,11 +26,17 @@ Mailto:                             redirects and converts all mailto: links to 
 Cydia                               only extracts package/ urls so that other stuff like api/ and connect/ aren’t screwed up
 IMDB                                redirects movie titles
 Ebay                                redirects items and searches
-
+Vine                                Partial support, parts of the url are stuck in the actual web page
 
 
 Unable to implement
 -------------------------------------------
 Dropbox                lack of url scheme support
-Vine                   lack of url scheme documentation(/support?)
+--Vine                   lack of url scheme documentation(/support?)
 Facebook               lack of documentation for the v4 application (and old methods don’t work either)
+
+
+Implemented In-App Browser overrides
+-------------------------------------------
+Twitter
+Safari / WebUIBrowserLoadingController
