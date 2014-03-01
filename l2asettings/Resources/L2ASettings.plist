@@ -72,7 +72,7 @@
 			<key>key</key>
 			<string>overrideWebUI</string>
 			<key>label</key>
-			<string>All WebUI (Safari & some apps)</string>
+			<string>All WebUI (Safari and some apps)</string>
                         <key>PostNotification</key>
                         <string>com.efrederickson.link2app/reloadScripts</string>
 		</dict>
