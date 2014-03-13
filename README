@@ -27,6 +27,7 @@ Cydia                               only extracts package/ urls so that other st
 IMDB                                redirects movie titles
 Ebay                                redirects items and searches
 Vine                                Partial support, parts of the url are stuck in the actual web page
+Foap                                Supports users, tags, and photos. Missions and brands are not supported because of the way Foap formats their urls
 
 
 Unable to implement
