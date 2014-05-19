@@ -5,12 +5,12 @@
 - (BOOL)openURL:(NSURL*)url;
 @end
 
-static L2ALuaBinding *lua;
-static BOOL overrideTwitter = YES;
-static BOOL overrideWebUI = YES;
-static BOOL enabled = YES;
+L2ALuaBinding *lua;
+BOOL overrideTwitter = YES;
+BOOL overrideWebUI = YES;
+BOOL enabled = YES;
 
-static void reloadScripts(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
+void reloadScripts(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
 {
     NSLog(@"L2A: reloading scripts");
     [lua disposeOfLua];

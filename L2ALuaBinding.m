@@ -60,27 +60,20 @@ static int l_print(lua_State *L)
     
 -(NSString*) modify:(NSString*)input
 {
-    //NSLog(@"L2A: modify %@", input);
     lua_rawgeti(L, LUA_REGISTRYINDEX, funcIndex);
-    //NSLog(@"L2A: got func");
     NSString *temp = [[NSString alloc] initWithFormat:@"%@", input];
     const char *str = [temp UTF8String];
-    //NSLog(@"L2A: cstr: %s", str);
     lua_pushstring(L, str);
-    //NSLog(@"L2A: pushed input");
     if (lua_pcall(L, 1, 1, 0) != 0)
     {
         // log error
         NSLog(@"L2A: failed to modify url %s", lua_tostring(L, -1));
-        [temp release];
         return input;
     }
     else
     {
-        [temp release];
         const char *result = lua_tostring(L, -1);
-        //NSLog(@"L2A: modified url %@ -> %s", input, result);
-        return [[NSString stringWithUTF8String:result] retain];
+        return [NSString stringWithUTF8String:result];
     }
 }
 @end
